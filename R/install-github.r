@@ -53,17 +53,17 @@
 install_github <- function(repo, username = NULL,
                            ref = "master", subdir = NULL,
                            auth_token = github_pat(quiet),
-                           host = "https://api.github.com", quiet = FALSE,
+                           host = "https://api.github.com", quiet = FALSE, prefix="repos",
                            ...) {
 
   remotes <- lapply(repo, github_remote, username = username, ref = ref,
-    subdir = subdir, auth_token = auth_token, host = host)
+    subdir = subdir, auth_token = auth_token, host = host, prefix=prefix)
 
   install_remotes(remotes, quiet = quiet, ...)
 }
 
 github_remote <- function(repo, username = NULL, ref = NULL, subdir = NULL,
-                       auth_token = github_pat(), sha = NULL,
+                       auth_token = github_pat(), sha = NULL, prefix=NULL,
                        host = "https://api.github.com") {
 
   meta <- parse_git_repo(repo)
@@ -82,6 +82,7 @@ github_remote <- function(repo, username = NULL, ref = NULL, subdir = NULL,
     subdir = meta$subdir %||% subdir,
     username = meta$username,
     ref = meta$ref,
+         prefix=meta$prefix,
     sha = sha,
     auth_token = auth_token
   )
