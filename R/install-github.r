@@ -223,7 +223,7 @@ parse_git_repo <- function(path) {
   github_rx <- sprintf("^(?:%s%s%s%s|(.*))$",
     username_rx, repo_rx, subdir_rx, ref_or_pull_or_release_rx)
 
-  param_names <- c("username", "repo", "subdir", "ref", "pull", "release", "invalid")
+  param_names <- c("username", "repo", "subdir", "ref", "pull", "release", "invalid","prefix")
   replace <- stats::setNames(sprintf("\\%d", seq_along(param_names)), param_names)
   params <- lapply(replace, function(r) gsub(github_rx, r, path, perl = TRUE))
   if (params$invalid != "")
