@@ -123,7 +123,7 @@ remote_download.github_remote<- function(x, quiet = FALSE) {
 }
 
 github_has_remotes <- function(x, auth = NULL) {
-  src_root <- paste0(x$host, "/repos/", x$username, "/", x$repo)
+  src_root <- paste0(x$host, "/",x$prefix,"/", x$username, "/", x$repo)
   src_submodules <- paste0(src_root, "/contents/.gitmodules?ref=", x$ref)
   response <- httr::HEAD(src_submodules, , auth)
   identical(httr::status_code(response), 200L)
@@ -154,6 +154,8 @@ remote_metadata.github_remote <- function(x, bundle = NULL, source = NULL) {
     GithubRef = x$ref,
     GithubSHA1 = sha,
     GithubSubdir = x$subdir
+    RemotePrefix=x$prefix,
+    GithubPrefix=x$prefix
   )
 }
 
@@ -189,7 +191,7 @@ github_resolve_ref.NULL <- function(x, params) {
 #' @export
 github_resolve_ref.github_pull <- function(x, params) {
   # GET /repos/:user/:repo/pulls/:number
-  path <- file.path("repos", params$username, params$repo, "pulls", x)
+  path <- file.path(x$prefix, params$username, params$repo, "pulls", x)
   response <- github_GET(path)
 
   params$username <- response$head$user$login
@@ -201,7 +203,7 @@ github_resolve_ref.github_pull <- function(x, params) {
 #' @export
 github_resolve_ref.github_release <- function(x, params) {
   # GET /repos/:user/:repo/releases
-  path <- paste("repos", params$username, params$repo, "releases", sep = "/")
+  path <- paste(x$prefix, params$username, params$repo, "releases", sep = "/")
   response <- github_GET(path)
   if (length(response) == 0L)
     stop("No releases found for repo ", params$username, "/", params$repo, ".")
