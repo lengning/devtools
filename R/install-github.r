@@ -95,7 +95,8 @@ remote_download.github_remote <- function(x, quiet = FALSE) {
     x$host <- paste0("https://", x$host)
   }
 
-  src_root <- paste0(x$host, "/repos/", x$username, "/", x$repo)
+  #src_root <- paste0(x$host, "/repos/", x$username, "/", x$repo)
+  src_root <- paste0(x$host, x$username, "/", x$repo)
   src <- paste0(src_root, "/zipball/", x$ref)
 
   if (!quiet) {
