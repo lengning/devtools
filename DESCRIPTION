@@ -1,4 +1,4 @@
-Package: devtoolsroche
+Package: rochedevtools
 Title: Tools to Make Developing R Packages Easier
 Version: 1.12.0.9000
 Authors@R: c(
