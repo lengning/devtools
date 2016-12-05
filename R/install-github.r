@@ -50,7 +50,8 @@
 #' install_github("hadley/private", auth_token = "abc")
 #'
 #' }
-install_github <- function(repo, username = NULL,
+
+install_github_roche <- function(repo, username = NULL,
                            ref = "master", subdir = NULL,
                            auth_token = github_pat(quiet),
                            host = "https://api.github.com", quiet = FALSE, prefix="repos",
