@@ -154,7 +154,7 @@ remote_metadata.github_remote <- function(x, bundle = NULL, source = NULL) {
     GithubUsername = x$username,
     GithubRef = x$ref,
     GithubSHA1 = sha,
-    GithubSubdir = x$subdir
+    GithubSubdir = x$subdir,
     RemotePrefix=x$prefix,
     GithubPrefix=x$prefix
   )
